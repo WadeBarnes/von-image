@@ -1,0 +1,11 @@
+#=========================================================
+# OpenShift Jenkins pipeline template parameters for:
+# Jenkinsfile: ./jenkins/Jenkinsfile
+# JSON Template File: https://raw.githubusercontent.com/BCDevOps/openshift-tools/master/provisioning/pipeline/resources/pipeline-build.json
+#=========================================================
+NAME=jenkins
+# GITHUB_WEBHOOK_SECRET=[a-zA-Z0-9]{40}
+SOURCE_REPOSITORY_URL=https://github.com/PSPC-SPAC-buyandsell/von-image.git
+SOURCE_REPOSITORY_REF=master
+CONTEXT_DIR=jenkins
+JENKINSFILE_PATH=Jenkinsfile

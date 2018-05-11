@@ -1,2 +1,5 @@
 .vscode
 python.env
+*_DeploymentConfig.json
+*_BuildConfig.json
+*.local.*

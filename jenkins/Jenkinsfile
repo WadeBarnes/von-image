@@ -1,0 +1,24 @@
+#!groovy
+
+node {
+
+    def installed = fileExists 'bin/activate'
+
+    if (!installed) {
+        stage("Install Python Virtual Enviroment") {
+            sh 'virtualenv --no-site-packages .'
+        }
+    }   
+    
+    stage ("Get Latest Code") {
+        checkout scm
+    }
+
+    stage ("Build The Images") {
+        sh '''
+            source bin/activate
+            python make_image.py dev-441 --release --py36 --s2i --test --name bcgovimages/von-image
+            deactivate
+           '''
+    }
+}

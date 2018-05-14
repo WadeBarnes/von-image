@@ -1,11 +1,6 @@
 #!groovy
 
 node {
-
-    tools {
-        docker 'docker-latest'
-    }    
-
     stage ("Get Latest Code") {
         checkout scm
     }

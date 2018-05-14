@@ -1,6 +1,6 @@
 #!groovy
 
-node {
+node('docker') {
     stage ("Get Latest Code") {
         checkout scm
     }

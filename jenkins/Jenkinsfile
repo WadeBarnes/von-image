@@ -6,7 +6,7 @@ node {
     }
 
     stage ("Build Image") {
-        von-image\dev-441\Dockerfile.ubuntu
+        def dockerfile = 'Dockerfile.ubuntu'
         def customImage = docker.build("von-image:py35-indy1.3.1-dev-441-ew", "-f ${dockerfile} ./dev-441") 
     }
 }

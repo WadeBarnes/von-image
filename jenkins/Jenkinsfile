@@ -1,13 +1,12 @@
 #!groovy
 
-node {    
+node {
     stage ("Get Latest Code") {
         checkout scm
     }
 
-    stage ("Build The Images") {
-      withPythonEnv('Python_3.6'){
-        pysh 'make_image.py dev-441 --release --py36 --s2i --test --name bcgovimages/von-image'
-      }
+    stage ("Build Image") {
+        von-image\dev-441\Dockerfile.ubuntu
+        def customImage = docker.build("von-image:py35-indy1.3.1-dev-441-ew", "-f ${dockerfile} ./dev-441") 
     }
 }

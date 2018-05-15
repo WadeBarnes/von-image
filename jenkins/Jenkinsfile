@@ -8,6 +8,9 @@ node {
     stage ("Build Image") {
        docker.withTool("docker-latest"){
            withEnv(['HOME='+pwd()]){
+
+                sh 'docker --version'
+
                 def dockerfile = './dev-441/Dockerfile.ubuntu'
                 def customImage = docker.build("von-image:py35-indy1.3.1-dev-441-ew", "-f ${dockerfile} ./dev-441/") 
            }

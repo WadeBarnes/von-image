@@ -1,0 +1,10 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# JSON Template File: templates/ubuntu/ubuntu-build.json
+#=========================================================
+NAME=ubuntu
+OUTPUT_IMAGE_TAG=16.04
+SOURCE_IMAGE_KIND=DockerImage
+SOURCE_IMAGE_NAME=ubuntu
+SOURCE_IMAGE_TAG=16.04

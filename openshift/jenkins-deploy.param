@@ -1,0 +1,14 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# JSON Template File: templates/jenkins/jenkins-deploy.json
+#=========================================================
+JENKINS_SERVICE_NAME=jenkins
+JNLP_SERVICE_NAME=jenkins-jnlp
+ENABLE_OAUTH=true
+JVM_ARCH=x86_64
+MEMORY_LIMIT=16Gi
+CPU_LIMIT=8
+VOLUME_CAPACITY=5Gi
+NAMESPACE=devex-von-image-tools
+JENKINS_IMAGE_STREAM_TAG=jenkins:latest

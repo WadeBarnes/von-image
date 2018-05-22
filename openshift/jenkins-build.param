@@ -1,0 +1,10 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# JSON Template File: templates/jenkins/jenkins-build.json
+#=========================================================
+NAME=jenkins
+OUTPUT_IMAGE_TAG=latest
+SOURCE_IMAGE_KIND=DockerImage
+SOURCE_IMAGE_NAME=openshift/jenkins-2-centos7
+SOURCE_IMAGE_TAG=latest

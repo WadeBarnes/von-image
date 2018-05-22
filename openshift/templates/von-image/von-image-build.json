@@ -1,0 +1,174 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "${NAME}-build-template"
+  },
+  "objects": [
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}"
+      }
+    },
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}",
+        "labels": {
+          "app": "${NAME}"
+        }
+      },
+      "spec": {
+        "runPolicy": "Serial",
+        "source": {
+          "type": "Git",
+          "git": {
+            "ref": "${GIT_REF}",
+            "uri": "${GIT_REPO_URL}"
+          },
+          "contextDir": "${SOURCE_CONTEXT_DIR}"
+        },
+        "strategy": {
+          "type": "Docker",
+          "dockerStrategy": {
+            "dockerfilePath": "${DOCKER_FILE_PATH}",
+            "from":
+            {
+              "kind": "DockerImage"
+            },
+            "buildArgs": [
+              {
+                "name": "indy_sdk_repo",
+                "value": "https://github.com/bcgov/indy-sdk.git"
+              },
+              {
+                "name": "indy_sdk_rev",
+                "value": "574ca3a881d188c3fd7400d27acbe5edc4c7f666"
+              },
+              {
+                "name": "indy_crypto_repo",
+                "value": "https://github.com/hyperledger/indy-crypto.git"
+              },
+              {
+                "name": "indy_crypto_rev",
+                "value": "96c79b36c5056eade5a8e3bae418f5a733cc8d8d"
+              },
+              {
+                "name": "python_version",
+                "value": "3.6.3"
+              },
+              {
+                "name": "tag_name",
+                "value": "bcgovimages/von-image"
+              },
+              {
+                "name": "tag_version",
+                "value": "py36-indy1.3.1-dev-441-ew"
+              },
+              {
+                "name": "indy_build_flags",
+                "value": "--release"
+              }
+            ]
+          }
+        },
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "${NAME}:${OUTPUT_IMAGE_TAG}"
+          }
+        },
+        "resources": {
+          "requests": {
+            "cpu": "${CPU_REQUEST}",
+            "memory": "${MEMORY_REQUEST}"
+          },
+          "limits": {
+            "cpu": "${CPU_LIMIT}",
+            "memory": "${MEMORY_LIMIT}"
+          }
+        },
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ]
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "NAME",
+      "displayName": "Name",
+      "description": "The name assigned to all of the objects defined in this template.",
+      "required": true,
+      "value": "von-image"
+    },
+    {
+      "name": "GIT_REPO_URL",
+      "displayName": "Git Repo URL",
+      "description": "The URL to your GIT repo.",
+      "required": true,
+      "value": "https://github.com/PSPC-SPAC-buyandsell/von-image"
+    },
+    {
+      "name": "GIT_REF",
+      "displayName": "Git Reference",
+      "description": "The git reference or branch.",
+      "required": true,
+      "value": "openshift"
+    },
+    {
+      "name": "SOURCE_CONTEXT_DIR",
+      "displayName": "Source Context Directory",
+      "description": "The source context directory.",
+      "required": false,
+      "value": ""
+    },
+    {
+      "name": "OUTPUT_IMAGE_TAG",
+      "displayName": "Output Image Tag",
+      "description": "The tag given to the built image.",
+      "required": true,
+      "value": "latest"
+    },
+    {
+      "name": "DOCKER_FILE_PATH",
+      "displayName": "Docker File Path",
+      "description": "The path to the docker file.",
+      "required": true,
+      "value": "dev-441/Dockerfile.ubuntu"
+    },
+    {
+      "name": "CPU_LIMIT",
+      "displayName": "Resources CPU Limit",
+      "description": "The resources CPU limit (in cores) for this build.",
+      "required": true,
+      "value": "0"
+    },
+    {
+      "name": "MEMORY_LIMIT",
+      "displayName": "Resources Memory Limit",
+      "description": "The resources Memory limit (in Mi, Gi, etc) for this build.",
+      "required": true,
+      "value": "0Mi"
+    },
+    {
+      "name": "CPU_REQUEST",
+      "displayName": "Resources CPU Request",
+      "description": "The resources CPU request (in cores) for this build.",
+      "required": true,
+      "value": "0"
+    },
+    {
+      "name": "MEMORY_REQUEST",
+      "displayName": "Resources Memory Request",
+      "description": "The resources Memory request (in Mi, Gi, etc) for this build.",
+      "required": true,
+      "value": "0Mi"
+    }
+  ]
+}
